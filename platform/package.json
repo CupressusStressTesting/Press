@@ -8,5 +8,7 @@
   },
   "author": "ReenExe & Golars",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "socket.io": "^1.3.7"
+  }
 }
