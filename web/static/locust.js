@@ -1,7 +1,11 @@
-$(window).ready(function() {
+$(document).ready(function() {
     if($("#locust_count").length > 0) {
         $("#locust_count").focus().select();
     }
+
+    var socket = io('http://127.0.0.1:8000/');
+
+    socket.on('connected', console.log);
 });
 
 $("#box_stop a").click(function(event) {
