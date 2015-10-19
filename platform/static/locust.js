@@ -48,7 +48,7 @@ var stats_tpl = $('#stats-template');
 var errors_tpl = $('#errors-template');
 var exceptions_tpl = $('#exceptions-template');
 
-$('#swarm_form').submit(function(event) {
+$('#js-swarm-form').submit(function(event) {
     event.preventDefault();
     $.post($(this).attr("action"), $(this).serialize(),
         function(response) {
