@@ -120,7 +120,7 @@ function updateStats() {
         //$("#fail_ratio").html(Math.round(report.fail_ratio*10000)/100);
         $("#fail_ratio").html(Math.round(report.fail_ratio*100));
         $("#status_text").html(report.state);
-        $("#userCount").html(report.user_count);
+        $("#js-user-count").html(report.user_count);
 
         if (report.slave_count)
             $("#slaveCount").html(report.slave_count)
