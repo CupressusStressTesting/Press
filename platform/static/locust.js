@@ -62,16 +62,15 @@ $('#js-swarm-form').submit(function(event) {
     success();
 });
 
-$('#edit_form').submit(function(event) {
+$('#js-edit-form').submit(function(event) {
     event.preventDefault();
-    $.post($(this).attr("action"), $(this).serialize(),
-        function(response) {
-            if (response.success) {
-                $("body").attr("class", "hatching");
-                $("#edit").fadeOut();
-            }
-        }
-    );
+
+    function success() {
+        $('body').attr('class', 'hatching');
+        $('#edit').fadeOut();
+    }
+
+    success();
 });
 
 var sortBy = function(field, reverse, primer){
