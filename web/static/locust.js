@@ -3,7 +3,7 @@ $(document).ready(function() {
         $("#locust_count").focus().select();
     }
 
-    var socket = io('http://127.0.0.1:8000/');
+    var socket = io('http://127.0.0.1:3000/');
 
     socket.on('connected', console.log);
 });
