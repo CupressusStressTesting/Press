@@ -19,9 +19,9 @@ $('#js-stop a').click(function(event) {
     success();
 });
 
-$("#box_reset a").click(function(event) {
+$('#js-reset a').click(function(event) {
     event.preventDefault();
-    $.get($(this).attr("href"));
+    /* TODO */
 });
 
 $("#js-new-test").click(function(event) {
