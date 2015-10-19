@@ -13,7 +13,6 @@ $('#js-stop a').click(function(event) {
         $('body').attr('class', 'stopped');
         $('.box_stop').hide();
         $('#js-new-test').show();
-        $('a.edit_test').hide();
         $('.user_count').hide();
     }
 
