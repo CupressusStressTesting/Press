@@ -132,7 +132,7 @@
     <script type="text/javascript" src="jquery-1.4.min.js"></script>
     <script type="text/javascript" src="jquery.jqote2.min.js"></script>
     <script type="text/javascript" src="jquery.tools.min.js"></script>
-    <script type="text/x-jqote-template" id="stats-template">
+    <script type="text/x-jqote-template" id="js-template-stats">
         <![CDATA[
         <tr class="<%=(this.name == "Total" ? "total" : "")%>">
             <td><%= (this.method ? this.method : "") %></td>
@@ -148,7 +148,7 @@
         </tr>
         ]]>
     </script>
-    <script type="text/x-jqote-template" id="errors-template">
+    <script type="text/x-jqote-template" id="js-template-errors">
         <![CDATA[
         <tr>
             <td><%= this.occurences %></td>
@@ -158,7 +158,7 @@
         </tr>
         ]]>
     </script>
-    <script type="text/x-jqote-template" id="exceptions-template">
+    <script type="text/x-jqote-template" id="js-template-exceptions">
         <![CDATA[
         <tr>
             <td class="occurences"><%= this.count %></td>

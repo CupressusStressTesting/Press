@@ -53,9 +53,9 @@
 
     $("ul.tabs").tabs("div.panes > div");
 
-    var stats_tpl = $('#stats-template');
-    var errors_tpl = $('#errors-template');
-    var exceptions_tpl = $('#exceptions-template');
+    var stats_tpl = $('#js-template-stats');
+    var errors_tpl = $('#js-template-errors');
+    var exceptions_tpl = $('#js-template-exceptions');
 
     $('#js-swarm-form').submit(function(event) {
         event.preventDefault();
