@@ -115,9 +115,6 @@ function updateStats() {
         $("#status_text").html(report.state);
         $("#js-user-count").html(report.user_count);
 
-        if (report.slave_count)
-            $("#slaveCount").html(report.slave_count)
-
         $('#stats tbody').empty();
         $('#errors tbody').empty();
 
