@@ -95,24 +95,33 @@
            if (a>b) return reverse * 1;
            return 0;
         }
-    }
+    };
 
     // Sorting by column
     var sortAttribute = "name";
     var desc = false;
     var report;
+
+    function show(report) {
+        var totalRow = report.stats.pop();
+        var sortedStats = report.stats.sort(sortBy(sortAttribute, desc))
+        sortedStats.push(totalRow);
+
+        $('#stats tbody')
+            .empty()
+            .jqoteapp(stats_tpl, sortedStats);
+
+        $('#errors tbody')
+            .empty()
+            .jqoteapp(errors_tpl, report.errors.sort(sortBy(sortAttribute, desc)));
+    }
+
     $(".stats_label").click(function(event) {
         event.preventDefault();
         sortAttribute = $(this).attr("data-sortkey");
         desc = !desc;
 
-        $('#stats tbody').empty();
-        $('#errors tbody').empty();
-        var totalRow = report.stats.pop()
-        var sortedStats = (report.stats).sort(sortBy(sortAttribute, desc))
-        sortedStats.push(totalRow)
-        $('#stats tbody').jqoteapp(stats_tpl, sortedStats);
-        $('#errors tbody').jqoteapp(errors_tpl, (report.errors).sort(sortBy(sortAttribute, desc)));
+        show(report);
     });
 
     function updateStats() {
@@ -124,15 +133,8 @@
             $("#status_text").html(report.state);
             $("#js-user-count").html(report.user_count);
 
-            $('#stats tbody').empty();
-            $('#errors tbody').empty();
+            show(report);
 
-            var totalRow = report.stats.pop()
-            var sortedStats = (report.stats).sort(sortBy(sortAttribute, desc))
-            sortedStats.push(totalRow)
-            $('#stats tbody').jqoteapp(stats_tpl, sortedStats);
-
-            $('#errors tbody').jqoteapp(errors_tpl, (report.errors).sort(sortBy(sortAttribute, desc)));
             setTimeout(updateStats, 2000);
         });
     }
