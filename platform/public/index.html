@@ -2,13 +2,13 @@
 <html>
 <head> 
     <title>Locust</title> 
-    <link rel="stylesheet" type="text/css" href="static/style.css" media="screen">
-    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon"/>
-</head> 
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
+</head>
 <body class="ready">
     <div class="top">
         <div class="top_content">
-            <img src="static/img/logo.png" class="logo" onclick="$('.about').fadeIn();" />
+            <img src="img/logo.png" class="logo" onclick="$('.about').fadeIn();" />
             <div class="boxes">
                 <div class="top_box box_status">
                     <div class="label">STATUS</div>
@@ -30,7 +30,7 @@
                     <div class="value"><span id="fail_ratio"></span>%</div>
                 </div>
                 <div class="top_box box_stop box_running" id="box_stop">
-                    <a href="/stop"><img src="static/img/stop.png" style="border:0;"></a>
+                    <a href="/stop"><img src="img/stop.png" style="border:0;"></a>
                 </div>
                 <div class="top_box box_stop box_running" id="box_reset">
                     <a href="/stats/reset">Reset Stats</a>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="main">
-        
+
         <div class="start" id="start">
             <div style="position:relative;">
                 <a href="#" class="close_link">Close</a>
@@ -52,7 +52,7 @@
                     <input type="text" name="locust_count" id="locust_count" class="val" /><br>
                     <label for="hatch_rate">Hatch rate <span style="color:#8a8a8a;">(users spawned/second)</span></label>
                     <input type="text" name="hatch_rate" id="hatch_rate" class="val" /><br>
-                    <input type="image" src="static/img/start_button.png" value="Start swarming" class="start_button">
+                    <input type="image" src="img/start_button.png" value="Start swarming" class="start_button">
                 </form>
                 <div style="clear:right;"></div>
             </div>
@@ -69,12 +69,12 @@
                     <input type="text" name="locust_count" id="new_locust_count" class="val" /><br>
                     <label for="hatch_rate">Hatch rate <span style="color:#8a8a8a;">(users spawned/second)</span></label>
                     <input type="text" name="hatch_rate" id="new_hatch_rate" class="val" /><br>
-                    <input type="image" src="static/img/start_button.png" value="Start swarming" class="start_button">
+                    <input type="image" src="img/start_button.png" value="Start swarming" class="start_button">
                 </form>
                 <div style="clear:right;"></div>
             </div>
         </div>
-        
+
         <div class="status" id="status">
             <ul class="tabs">
                 <li><a href="#">Statistics</a></li>
@@ -135,7 +135,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="about" style="display:none;">
             <div style="position:relative;">
                 <a href="#" class="close_link">Close</a>
@@ -143,26 +143,26 @@
             <div class="padder">
                 <h1>About</h1>
                 <p>
-                    The original idea for Locust was Carl Byström's who made a first proof of concept in June 2010. 
+                    The original idea for Locust was Carl Byström's who made a first proof of concept in June 2010.
                     Jonatan Heyman picked up Locust in January 2011, implemented the current concept of Locust classes
                     and made it work distributed across multiple machines.
-                </p>                
+                </p>
                 <p>
-                    Jonatan, Carl and Joakim Hamrén has continued the development of Locust at their job, 
+                    Jonatan, Carl and Joakim Hamrén has continued the development of Locust at their job,
                     ESN Social Software, who have adopted Locust as an inhouse Open Source project.
                 </p>
-                
+
                 <h1>Authors and Copyright</h1>
                 <a href="http://cgbystrom.com/">Carl Byström</a> (<a href="http://twitter.com/cgbystrom/">@cgbystrom</a>)<br>
                 <a href="http://heyman.info/">Jonatan Heyman</a> (<a href="http://twitter.com/jonatanheyman/">@jonatanheyman</a>)<br>
                 Joakim Hamrén (<a href="http://twitter.com/Jahaaja/">@jahaaja</a>)<br>
                 <a href="http://esn.me/">ESN Social Software</a> (<a href="http://twitter.com/uprise_ea/">@uprise_ea</a>)<br>
                 Hugo Heyman (<a href="http://twitter.com/hugoheyman/">@hugoheyman</a>)
-                
-                
+
+
                 <h1>License</h1>
                 Open source licensed under the MIT license.
-                
+
                 <h1>Version</h1>
                 {{version}}<br>
                 <a href="http://locust.io/">http://locust.io</a>
@@ -170,10 +170,10 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="static/socket.io-1.3.7.js"></script>
-    <script type="text/javascript" src="static/jquery-1.4.min.js"></script>
-    <script type="text/javascript" src="static/jquery.jqote2.min.js"></script>
-    <script type="text/javascript" src="static/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="socket.io-1.3.7.js"></script>
+    <script type="text/javascript" src="jquery-1.4.min.js"></script>
+    <script type="text/javascript" src="jquery.jqote2.min.js"></script>
+    <script type="text/javascript" src="jquery.tools.min.js"></script>
     <script type="text/x-jqote-template" id="stats-template">
         <![CDATA[
         <tr class="<%=(alternate ? "dark" : "")%> <%=(this.name == "Total" ? "total" : "")%>">
@@ -212,6 +212,6 @@
         <% alternate = !alternate; %>
         ]]>
     </script>
-    <script type="text/javascript" src="static/locust.js"></script>
+    <script type="text/javascript" src="locust.js"></script>
 </body>
 </html>
