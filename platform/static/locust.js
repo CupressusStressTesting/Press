@@ -46,8 +46,7 @@
         $("#new_locust_count").focus().select();
     });
 
-    $(".close_link").click(function(event) {
-        event.preventDefault();
+    $('.close_link').click(function(event) {
         $(this).parent().parent().hide();
     });
 
