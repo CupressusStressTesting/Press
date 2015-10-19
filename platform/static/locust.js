@@ -12,7 +12,7 @@ $('#js-stop a').click(function(event) {
     function success() {
         $('body').attr('class', 'stopped');
         $('.box_stop').hide();
-        $('a.new_test').show();
+        $('#js-new-test').show();
         $('a.edit_test').hide();
         $('.user_count').hide();
     }
@@ -25,7 +25,7 @@ $("#box_reset a").click(function(event) {
     $.get($(this).attr("href"));
 });
 
-$("#new_test").click(function(event) {
+$("#js-new-test").click(function(event) {
     event.preventDefault();
     $("#start").show();
     $("#locust_count").focus().select();
@@ -58,7 +58,7 @@ $('#js-swarm-form').submit(function(event) {
         $('#start').fadeOut();
         $('#status').fadeIn();
         $('.box_running').fadeIn();
-        $('a.new_test').fadeOut();
+        $('#js-new-test').fadeOut();
         $('a.edit_test').fadeIn();
         $('.user_count').fadeIn();
     }
