@@ -56,7 +56,6 @@ $('#js-swarm-form').submit(function(event) {
         $('#status').fadeIn();
         $('.box_running').fadeIn();
         $('#js-new-test').fadeOut();
-        $('a.edit_test').fadeIn();
         $('.user_count').fadeIn();
     }
 
