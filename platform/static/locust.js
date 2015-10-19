@@ -8,14 +8,16 @@ $(document).ready(function() {
     socket.on('connected', console.log);
 });
 
-$("#box_stop a").click(function(event) {
-    event.preventDefault();
-    $.get($(this).attr("href"));
-    $("body").attr("class", "stopped");
-    $(".box_stop").hide();
-    $("a.new_test").show();
-    $("a.edit_test").hide();
-    $(".user_count").hide();
+$('#box_stop a').click(function(event) {
+    function success() {
+        $('body').attr('class', 'stopped');
+        $('.box_stop').hide();
+        $('a.new_test').show();
+        $('a.edit_test').hide();
+        $('.user_count').hide();
+    }
+
+    success();
 });
 
 $("#box_reset a").click(function(event) {
