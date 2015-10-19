@@ -8,7 +8,7 @@ $(document).ready(function() {
     socket.on('connected', console.log);
 });
 
-$('#box_stop a').click(function(event) {
+$('#js-stop a').click(function(event) {
     function success() {
         $('body').attr('class', 'stopped');
         $('.box_stop').hide();
