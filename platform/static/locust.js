@@ -258,15 +258,11 @@
         success();
     });
 
-    var sortBy = function (field, reverse, primer) {
+    var sortBy = function (field, reverse) {
         reverse = (reverse) ? -1 : 1;
         return function (a, b) {
             a = a[field];
             b = b[field];
-            if (typeof(primer) != 'undefined') {
-                a = primer(a);
-                b = primer(b);
-            }
             if (a < b) return reverse * -1;
             if (a > b) return reverse * 1;
             return 0;
@@ -279,8 +275,10 @@
     var report;
 
     function show(report) {
+        var sortCallback = sortBy(sortAttribute, desc);
+
         var totalRow = report.stats.pop();
-        var sortedStats = report.stats.sort(sortBy(sortAttribute, desc))
+        var sortedStats = report.stats.sort(sortCallback);
         sortedStats.push(totalRow);
 
         $('#stats tbody')
@@ -289,7 +287,7 @@
 
         $('#errors tbody')
             .empty()
-            .jqoteapp(errors_tpl, report.errors.sort(sortBy(sortAttribute, desc)));
+            .jqoteapp(errors_tpl, report.errors.sort(sortCallback));
     }
 
     $(".stats_label").click(function (event) {
