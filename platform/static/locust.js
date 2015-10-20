@@ -1,7 +1,179 @@
 (function () {
     var Service = {
         getRequestStatistic: function (success) {
-            var mock = {"errors": [], "stats": [{"median_response_time": null, "min_response_time": 0, "current_rps": 0, "name": "Total", "num_failures": 0, "max_response_time": 0, "avg_content_length": 0, "avg_response_time": 0, "method": null, "num_requests": 0}], "state": "ready", "total_rps": 0, "fail_ratio": 0.0, "user_count": 0};
+            var mock = {
+                "errors": [],
+                "stats": [{
+                    "median_response_time": 4,
+                    "min_response_time": 4,
+                    "current_rps": 0.0,
+                    "name": "/",
+                    "num_failures": 0,
+                    "max_response_time": 4,
+                    "avg_content_length": 23,
+                    "avg_response_time": 4.0,
+                    "method": "GET",
+                    "num_requests": 1
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/1/element/1",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/1/element/2",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/1/element/3",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/1/elements",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/2/element/1",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/2/element/2",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/2/element/3",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/2/elements",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/3/element/1",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/3/element/2",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/3/element/3",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 0,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "/api/collection/3/elements",
+                    "num_failures": 0,
+                    "max_response_time": 0,
+                    "avg_content_length": 0,
+                    "avg_response_time": 0,
+                    "method": "GET",
+                    "num_requests": 0
+                }, {
+                    "median_response_time": 5,
+                    "min_response_time": 5,
+                    "current_rps": 0.0,
+                    "name": "/api/collections",
+                    "num_failures": 0,
+                    "max_response_time": 5,
+                    "avg_content_length": 177,
+                    "avg_response_time": 5.0,
+                    "method": "GET",
+                    "num_requests": 1
+                }, {
+                    "median_response_time": 4,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "Total",
+                    "num_failures": 0,
+                    "max_response_time": 5,
+                    "avg_content_length": 100,
+                    "avg_response_time": 4.5,
+                    "method": null,
+                    "num_requests": 2
+                }],
+                "state": "running",
+                "total_rps": 0.0,
+                "fail_ratio": 0.0,
+                "user_count": 12
+            };
 
             success(mock);
         },
@@ -12,8 +184,8 @@
         }
     };
 
-    $(document).ready(function() {
-        if($("#locust_count").length > 0) {
+    $(document).ready(function () {
+        if ($("#locust_count").length > 0) {
             $("#locust_count").focus().select();
         }
 
@@ -22,7 +194,7 @@
         socket.on('connected', console.log);
     });
 
-    $('#js-stop a').click(function(event) {
+    $('#js-stop a').click(function (event) {
         function success() {
             $('body').attr('class', 'stopped');
             $('.box_stop').hide();
@@ -33,24 +205,24 @@
         success();
     });
 
-    $('#js-reset a').click(function(event) {
+    $('#js-reset a').click(function (event) {
         event.preventDefault();
         /* TODO */
     });
 
-    $("#js-new-test").click(function(event) {
+    $("#js-new-test").click(function (event) {
         event.preventDefault();
         $("#start").show();
         $("#locust_count").focus().select();
     });
 
-    $(".edit_test").click(function(event) {
+    $(".edit_test").click(function (event) {
         event.preventDefault();
         $("#edit").show();
         $("#new_locust_count").focus().select();
     });
 
-    $('.close_link').click(function(event) {
+    $('.close_link').click(function (event) {
         $(this).parent().parent().hide();
     });
 
@@ -60,7 +232,7 @@
     var errors_tpl = $('#js-template-errors');
     var exceptions_tpl = $('#js-template-exceptions');
 
-    $('#js-swarm-form').submit(function(event) {
+    $('#js-swarm-form').submit(function (event) {
         event.preventDefault();
 
         function success() {
@@ -75,7 +247,7 @@
         success();
     });
 
-    $('#js-edit-form').submit(function(event) {
+    $('#js-edit-form').submit(function (event) {
         event.preventDefault();
 
         function success() {
@@ -86,18 +258,18 @@
         success();
     });
 
-    var sortBy = function(field, reverse, primer){
+    var sortBy = function (field, reverse, primer) {
         reverse = (reverse) ? -1 : 1;
-        return function(a,b){
+        return function (a, b) {
             a = a[field];
             b = b[field];
-           if (typeof(primer) != 'undefined'){
-               a = primer(a);
-               b = primer(b);
-           }
-           if (a<b) return reverse * -1;
-           if (a>b) return reverse * 1;
-           return 0;
+            if (typeof(primer) != 'undefined') {
+                a = primer(a);
+                b = primer(b);
+            }
+            if (a < b) return reverse * -1;
+            if (a > b) return reverse * 1;
+            return 0;
         }
     };
 
@@ -120,7 +292,7 @@
             .jqoteapp(errors_tpl, report.errors.sort(sortBy(sortAttribute, desc)));
     }
 
-    $(".stats_label").click(function(event) {
+    $(".stats_label").click(function (event) {
         event.preventDefault();
         sortAttribute = $(this).attr("data-sortkey");
         desc = !desc;
@@ -131,9 +303,9 @@
     function updateStats() {
         Service.getRequestStatistic(function (data) {
             report = data;
-            $("#total_rps").html(Math.round(report.total_rps*100)/100);
+            $("#total_rps").html(Math.round(report.total_rps * 100) / 100);
             //$("#fail_ratio").html(Math.round(report.fail_ratio*10000)/100);
-            $("#fail_ratio").html(Math.round(report.fail_ratio*100));
+            $("#fail_ratio").html(Math.round(report.fail_ratio * 100));
             $("#status_text").html(report.state);
             $("#js-user-count").html(report.user_count);
 
@@ -142,6 +314,7 @@
             setTimeout(updateStats, 2000);
         });
     }
+
     updateStats();
 
     function updateExceptions() {
@@ -151,5 +324,6 @@
             setTimeout(updateExceptions, 5000);
         });
     }
+
     updateExceptions();
 })();
