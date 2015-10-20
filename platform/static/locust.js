@@ -1,10 +1,14 @@
 (function () {
     var Service = {
         getRequestStatistic: function (success) {
+            var mock = {"errors": [], "stats": [{"median_response_time": null, "min_response_time": 0, "current_rps": 0, "name": "Total", "num_failures": 0, "max_response_time": 0, "avg_content_length": 0, "avg_response_time": 0, "method": null, "num_requests": 0}], "state": "ready", "total_rps": 0, "fail_ratio": 0.0, "user_count": 0};
 
+            success(mock);
         },
         getExceptions: function (success) {
+            var mock = {"exceptions": []};
 
+            success(mock);
         }
     };
 
@@ -126,7 +130,7 @@
 
     function updateStats() {
         Service.getRequestStatistic(function (data) {
-            report = JSON.parse(data);
+            report = data;
             $("#total_rps").html(Math.round(report.total_rps*100)/100);
             //$("#fail_ratio").html(Math.round(report.fail_ratio*10000)/100);
             $("#fail_ratio").html(Math.round(report.fail_ratio*100));
