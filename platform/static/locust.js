@@ -1,24 +1,21 @@
 (function () {
+    var socket = io();
+
+    socket.on('connected', console.log);
+
     var Service = {
         getRequestStatistic: function (success) {
-
-        },
-        getExceptions: function (success) {
-
+            socket.on('request.statistic', success);
         }
     };
 
-    $(document).ready(function() {
-        if($("#locust_count").length > 0) {
+    $(document).ready(function () {
+        if ($("#locust_count").length > 0) {
             $("#locust_count").focus().select();
         }
-
-        var socket = io();
-
-        socket.on('connected', console.log);
     });
 
-    $('#js-stop a').click(function(event) {
+    $('#js-stop a').click(function (event) {
         function success() {
             $('body').attr('class', 'stopped');
             $('.box_stop').hide();
@@ -29,34 +26,32 @@
         success();
     });
 
-    $('#js-reset a').click(function(event) {
+    $('#js-reset a').click(function (event) {
         event.preventDefault();
         /* TODO */
     });
 
-    $("#js-new-test").click(function(event) {
+    $("#js-new-test").click(function (event) {
         event.preventDefault();
         $("#start").show();
         $("#locust_count").focus().select();
     });
 
-    $(".edit_test").click(function(event) {
+    $(".edit_test").click(function (event) {
         event.preventDefault();
         $("#edit").show();
         $("#new_locust_count").focus().select();
     });
 
-    $('.close_link').click(function(event) {
+    $('.close_link').click(function (event) {
         $(this).parent().parent().hide();
     });
 
-    $("ul.tabs").tabs("div.panes > div");
+    $('ul.tabs').tabs('div.panes > div');
 
-    var stats_tpl = $('#js-template-stats');
-    var errors_tpl = $('#js-template-errors');
-    var exceptions_tpl = $('#js-template-exceptions');
+    var statisticTemplate = $('#js-template-stats');
 
-    $('#js-swarm-form').submit(function(event) {
+    $('#js-swarm-form').submit(function (event) {
         event.preventDefault();
 
         function success() {
@@ -71,7 +66,7 @@
         success();
     });
 
-    $('#js-edit-form').submit(function(event) {
+    $('#js-edit-form').submit(function (event) {
         event.preventDefault();
 
         function success() {
@@ -82,18 +77,14 @@
         success();
     });
 
-    var sortBy = function(field, reverse, primer){
+    var sortBy = function (field, reverse) {
         reverse = (reverse) ? -1 : 1;
-        return function(a,b){
+        return function (a, b) {
             a = a[field];
             b = b[field];
-           if (typeof(primer) != 'undefined'){
-               a = primer(a);
-               b = primer(b);
-           }
-           if (a<b) return reverse * -1;
-           if (a>b) return reverse * 1;
-           return 0;
+            if (a < b) return reverse * -1;
+            if (a > b) return reverse * 1;
+            return 0;
         }
     };
 
@@ -103,21 +94,18 @@
     var report;
 
     function show(report) {
+        var sortCallback = sortBy(sortAttribute, desc);
+
         var totalRow = report.stats.pop();
-        var sortedStats = report.stats.sort(sortBy(sortAttribute, desc))
+        var sortedStats = report.stats.sort(sortCallback);
         sortedStats.push(totalRow);
 
-        $('#stats tbody')
+        $('#js-statistic')
             .empty()
-            .jqoteapp(stats_tpl, sortedStats);
-
-        $('#errors tbody')
-            .empty()
-            .jqoteapp(errors_tpl, report.errors.sort(sortBy(sortAttribute, desc)));
+            .jqoteapp(statisticTemplate, sortedStats);
     }
 
-    $(".stats_label").click(function(event) {
-        event.preventDefault();
+    $('.stats_label').click(function (event) {
         sortAttribute = $(this).attr("data-sortkey");
         desc = !desc;
 
@@ -126,26 +114,16 @@
 
     function updateStats() {
         Service.getRequestStatistic(function (data) {
-            report = JSON.parse(data);
-            $("#total_rps").html(Math.round(report.total_rps*100)/100);
+            report = data;
+            $("#total_rps").html(Math.round(report.total_rps * 100) / 100);
             //$("#fail_ratio").html(Math.round(report.fail_ratio*10000)/100);
-            $("#fail_ratio").html(Math.round(report.fail_ratio*100));
-            $("#status_text").html(report.state);
+            $("#fail_ratio").html(Math.round(report.fail_ratio * 100));
+            $("#js-current-status").html(report.state);
             $("#js-user-count").html(report.user_count);
 
             show(report);
-
-            setTimeout(updateStats, 2000);
         });
     }
+
     updateStats();
-
-    function updateExceptions() {
-        Service.getExceptions(function (data) {
-            $('#exceptions tbody').empty();
-            $('#exceptions tbody').jqoteapp(exceptions_tpl, data.exceptions);
-            setTimeout(updateExceptions, 5000);
-        });
-    }
-    updateExceptions();
 })();
