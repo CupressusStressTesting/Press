@@ -13,7 +13,7 @@
             $("#locust_count").focus().select();
         }
 
-        var socket = io('http://127.0.0.1:3000/');
+        var socket = io();
 
         socket.on('connected', console.log);
     });
