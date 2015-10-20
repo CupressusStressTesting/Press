@@ -47,9 +47,9 @@
         $(this).parent().parent().hide();
     });
 
-    $("ul.tabs").tabs("div.panes > div");
+    $('ul.tabs').tabs('div.panes > div');
 
-    var stats_tpl = $('#js-template-stats');
+    var statisticTemplate = $('#js-template-stats');
 
     $('#js-swarm-form').submit(function (event) {
         event.preventDefault();
@@ -100,12 +100,12 @@
         var sortedStats = report.stats.sort(sortCallback);
         sortedStats.push(totalRow);
 
-        $('#stats tbody')
+        $('#js-statistic')
             .empty()
-            .jqoteapp(stats_tpl, sortedStats);
+            .jqoteapp(statisticTemplate, sortedStats);
     }
 
-    $(".stats_label").click(function (event) {
+    $('.stats_label').click(function (event) {
         sortAttribute = $(this).attr("data-sortkey");
         desc = !desc;
 
