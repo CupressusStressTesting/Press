@@ -170,8 +170,8 @@
                     "num_requests": 2
                 }],
                 "state": "running",
-                "total_rps": 0.0,
-                "fail_ratio": 0.0,
+                "total_rps": Math.floor(Math.random() * 10),
+                "fail_ratio": Math.floor(Math.random() * 3),
                 "user_count": 12
             };
 
