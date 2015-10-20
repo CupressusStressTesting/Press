@@ -49,7 +49,7 @@
 
     $("ul.tabs").tabs("div.panes > div");
 
-    var stats_tpl = $('#js-template-stats');    
+    var stats_tpl = $('#js-template-stats');
 
     $('#js-swarm-form').submit(function (event) {
         event.preventDefault();
@@ -106,7 +106,6 @@
     }
 
     $(".stats_label").click(function (event) {
-        event.preventDefault();
         sortAttribute = $(this).attr("data-sortkey");
         desc = !desc;
 
