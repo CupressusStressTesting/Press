@@ -76,9 +76,7 @@
 
         <div class="status" id="status">
             <ul class="tabs">
-                <li><a href="#">Statistics</a></li>
-                <li><a href="#">Failures</a></li>
-                <li><a href="#">Exceptions</a></li>
+                <li><a href="javascript:void(0);">Statistics</a></li>
             </ul>
             <div style="clear:left;"></div>
             <div class="panes">
@@ -97,28 +95,6 @@
                                 <th class="stats_label numeric" href="#" data-sortkey="avg_content_length" title="Average response size">Content Size</th>
                                 <th class="stats_label numeric" href="#" data-sortkey="current_rps" title="Current number of requests per second"># reqs/sec</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="display:none;">
-                    <table id="errors" class="stats">
-                        <thead>
-                            <th class="error_count stats_label" data-sortkey="1"># fails</th>
-                            <th class="stats_label" href="#" data-sortkey="method">Method</th>
-                            <th class="stats_label" href="#" data-sortkey="name">Name</th>
-                            <th class="error_type stats_label" data-sortkey="0">Type</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="display:none;">
-                    <table id="exceptions" class="stats">
-                        <thead>
-                            <th class="exception_occurences stats_label" data-sortkey="1"># occurences</th>
-                            <th class="exception_traceback stats_label" data-sortkey="0">Traceback</th>
                         </thead>
                         <tbody>
                         </tbody>
@@ -145,25 +121,6 @@
             <td class="numeric"><%= this.max_response_time %></td>
             <td class="numeric"><%= Math.round(this.avg_content_length) %></td>
             <td class="numeric"><%= Math.round(this.current_rps*100)/100 %></td>
-        </tr>
-        ]]>
-    </script>
-    <script type="text/x-jqote-template" id="js-template-errors">
-        <![CDATA[
-        <tr>
-            <td><%= this.occurences %></td>
-            <td><%= this.method %></td>
-            <td><%= this.name %></td>
-            <td><%= function(e) { return e.replace("<", "&lt;"); }(this.error) %></td>
-        </tr>
-        ]]>
-    </script>
-    <script type="text/x-jqote-template" id="js-template-exceptions">
-        <![CDATA[
-        <tr>
-            <td class="occurences"><%= this.count %></td>
-            <td class="traceback" title="Occured on: <%= this.nodes %>"><%= function(e) { return e.replace("<", "&lt;"); }(this.traceback) %>
-<%= function(e) { return e.replace("<", "&lt;"); }(this.msg) %></td>
         </tr>
         ]]>
     </script>

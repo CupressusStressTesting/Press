@@ -6,11 +6,6 @@
     var Service = {
         getRequestStatistic: function (success) {
             socket.on('request.statistic', success);
-        },
-        getExceptions: function (success) {
-            var mock = {"exceptions": []};
-
-            success(mock);
         }
     };
 
@@ -54,9 +49,7 @@
 
     $("ul.tabs").tabs("div.panes > div");
 
-    var stats_tpl = $('#js-template-stats');
-    var errors_tpl = $('#js-template-errors');
-    var exceptions_tpl = $('#js-template-exceptions');
+    var stats_tpl = $('#js-template-stats');    
 
     $('#js-swarm-form').submit(function (event) {
         event.preventDefault();
@@ -110,10 +103,6 @@
         $('#stats tbody')
             .empty()
             .jqoteapp(stats_tpl, sortedStats);
-
-        $('#errors tbody')
-            .empty()
-            .jqoteapp(errors_tpl, report.errors.sort(sortCallback));
     }
 
     $(".stats_label").click(function (event) {
@@ -138,14 +127,4 @@
     }
 
     updateStats();
-
-    function updateExceptions() {
-        Service.getExceptions(function (data) {
-            $('#exceptions tbody').empty();
-            $('#exceptions tbody').jqoteapp(exceptions_tpl, data.exceptions);
-            setTimeout(updateExceptions, 5000);
-        });
-    }
-
-    updateExceptions();
 })();
