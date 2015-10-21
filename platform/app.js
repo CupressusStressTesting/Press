@@ -27,7 +27,6 @@ io.sockets.on('connection', function(socket) {
 
 var getRequestStatistic = function () {
     return {
-        "errors": [],
         "stats": [{
             "median_response_time": 4,
             "min_response_time": 4,
