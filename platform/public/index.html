@@ -28,8 +28,8 @@
                     <div class="label">FAILURES</div>
                     <div class="value"><span id="fail_ratio"></span>%</div>
                 </div>
-                <div class="top_box box_stop box_running" id="js-stop">
-                    <a href="javascript:void(0);"><img src="img/stop.png" style="border:0;"></a>
+                <div class="top_box box_stop box_running">
+                    <a id="js-stop" href="javascript:void(0);"><img src="img/stop.png" style="border:0;"></a>
                 </div>
                 <div class="top_box box_stop box_running" id="js-reset">
                     <a href="javascript:void(0);">Reset Stats</a>
@@ -48,7 +48,7 @@
                 <h2>Start new Locust swarm</h2>
                 <form id="js-swarm-form">
                     <label>Number of users to simulate</label>
-                    <input type="text" name="locust_count" id="locust_count" class="val" /><br>
+                    <input type="text" name="user_count" id="locust_count" class="val" /><br>
                     <label>Hatch rate <span style="color:#8a8a8a;">(users spawned/second)</span></label>
                     <input type="text" name="hatch_rate" class="val" /><br>
                     <input type="image" src="img/start_button.png" value="Start swarming" class="start_button">
@@ -65,7 +65,7 @@
                 <h2>Change the locust count</h2>
                 <form id="js-edit-form">
                     <label>Number of users to simulate</label>
-                    <input type="text" name="locust_count" id="new_locust_count" class="val" /><br>
+                    <input type="text" name="user_count" id="new_locust_count" class="val" /><br>
                     <label>Hatch rate <span style="color:#8a8a8a;">(users spawned/second)</span></label>
                     <input type="text" name="hatch_rate" class="val" /><br>
                     <input type="image" src="img/start_button.png" value="Start swarming" class="start_button">

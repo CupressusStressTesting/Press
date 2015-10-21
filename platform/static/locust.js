@@ -5,17 +5,23 @@
 
     var Service = {
         getRequestStatistic: function (success) {
-            socket.on('request.statistic', success);
+            socket.on('request.statistic.update', success);
+        },
+        setSetting: function (data) {
+            socket.emit('setting.set', data);
+        },
+        stop: function () {
+            socket.emit('process.stop');
         }
     };
 
     $(document).ready(function () {
-        if ($("#locust_count").length > 0) {
-            $("#locust_count").focus().select();
-        }
+        $("#locust_count").focus();
     });
 
-    $('#js-stop a').click(function (event) {
+    $('#js-stop').click(function (event) {
+        Service.stop();
+
         function success() {
             $('body').attr('class', 'stopped');
             $('.box_stop').hide();
@@ -34,13 +40,13 @@
     $("#js-new-test").click(function (event) {
         event.preventDefault();
         $("#start").show();
-        $("#locust_count").focus().select();
+        $("#locust_count").focus();
     });
 
     $(".edit_test").click(function (event) {
         event.preventDefault();
         $("#edit").show();
-        $("#new_locust_count").focus().select();
+        $("#new_locust_count").focus();
     });
 
     $('.close_link').click(function (event) {
@@ -51,8 +57,19 @@
 
     var statisticTemplate = $('#js-template-stats');
 
+    var useFormSetting = function (form) {
+        var data = {};
+        var serializeArray = $(form).serializeArray();
+        for (var index in serializeArray) {
+            data[serializeArray[index].name] = serializeArray[index].value;
+        }
+        Service.setSetting(data);
+    };
+
     $('#js-swarm-form').submit(function (event) {
         event.preventDefault();
+
+        useFormSetting(this);
 
         function success() {
             $('body').attr('class', 'hatching');
@@ -68,6 +85,8 @@
 
     $('#js-edit-form').submit(function (event) {
         event.preventDefault();
+
+        useFormSetting(this);
 
         function success() {
             $('body').attr('class', 'hatching');
