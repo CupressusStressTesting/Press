@@ -9,6 +9,9 @@
         },
         setSetting: function (data) {
             socket.emit('setting.set', data);
+        },
+        stop: function () {
+            socket.emit('process.stop');
         }
     };
 
@@ -16,7 +19,9 @@
         $("#locust_count").focus();
     });
 
-    $('#js-stop a').click(function (event) {
+    $('#js-stop').click(function (event) {
+        Service.stop();
+
         function success() {
             $('body').attr('class', 'stopped');
             $('.box_stop').hide();

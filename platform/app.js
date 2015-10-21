@@ -21,7 +21,10 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('setting.set', function(data) {
         StressTestingCore.setSetting(data.user_count, data.hatch_rate);
+        StressTestingCore.setState('running');
     });
+
+    socket.on('process.stop', StressTestingCore.stop);
 
     setInterval(function () {
         socket.emit('request.statistic.update', StressTestingCore.getRequestStatistic());
@@ -35,10 +38,22 @@ var StressTestingCore = (function () {
         hatchRate: 0
     };
 
+    var process = {
+        state: 'ready'
+    };
+
     return {
         setSetting: function (userCount, hatchRate) {
             setting.userCount = userCount;
             setting.hatchRate = hatchRate;
+        },
+
+        setState: function (state) {
+            process.state = state;
+        },
+
+        stop: function () {
+            process.state = 'stop'
         },
 
         getRequestStatistic: function () {
@@ -66,7 +81,7 @@ var StressTestingCore = (function () {
                     "method": null,
                     "num_requests": 2
                 }],
-                "state": "running",
+                "state": process.state,
                 "total_rps": Math.floor(Math.random() * 10),
                 "fail_ratio": Math.floor(Math.random() * 3),
                 "user_count": setting.userCount
