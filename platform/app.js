@@ -19,15 +19,27 @@ io.sockets.on('connection', function(socket) {
         message: 'Platform Side'
     });
 
+    socket.on('setting.set', function(data) {
+        StressTestingCore.setSetting(data.user_count, data.hatch_rate);
+    });
+
     setInterval(function () {
-        socket.emit('request.statistic', StressTestingCore.getRequestStatistic());
+        socket.emit('request.statistic.update', StressTestingCore.getRequestStatistic());
     }, 1000);
 
 });
 
 var StressTestingCore = (function () {
+    var setting = {
+        userCount: 0,
+        hatchRate: 0
+    };
+
     return {
-        setUserCount: function (count) {},
+        setSetting: function (userCount, hatchRate) {
+            setting.userCount = userCount;
+            setting.hatchRate = hatchRate;
+        },
 
         getRequestStatistic: function () {
             return {
@@ -57,7 +69,7 @@ var StressTestingCore = (function () {
                 "state": "running",
                 "total_rps": Math.floor(Math.random() * 10),
                 "fail_ratio": Math.floor(Math.random() * 3),
-                "user_count": 12
+                "user_count": setting.userCount
             };
         }
     }
