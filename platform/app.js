@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var request = require('request');
 
 app.use(express.static('public'));
 app.use(express.static('static'));
@@ -13,13 +14,13 @@ var server = app.listen(3000, function () {
 });
 
 var io = require('socket.io')(server);
-io.sockets.on('connection', function(socket) {
+io.sockets.on('connection', function (socket) {
 
     socket.emit('connected', {
         message: 'Platform Side'
     });
 
-    socket.on('setting.set', function(data) {
+    socket.on('setting.set', function (data) {
         StressTestingCore.setSetting(data.user_count, data.hatch_rate);
         StressTestingCore.setState('running');
     });
@@ -38,50 +39,81 @@ var StressTestingCore = (function () {
         hatchRate: 0
     };
 
-    var process = {
-        state: 'ready'
+    var processes = {
+        state: 'ready',
+        statistic: {
+            data: {},
+            add: function (url, microtime, success, length) {
+                if (this.data[url]) {
+                    var current = this.data[url];
+                    current["num_requests"] += 1;
+                } else {
+                    this.data[url] = {
+                        "median_response_time": microtime,
+                        "min_response_time": microtime,
+                        "current_rps": 0.0,
+                        "name": url,
+                        "num_failures": 0,
+                        "max_response_time": microtime,
+                        "avg_content_length": length,
+                        "avg_response_time": microtime,
+                        "method": "GET",
+                        "num_requests": 1
+                    }
+                }
+            },
+            toArray: function () {
+                var data = [];
+                for (var url in this.data) {
+                    data.push(this.data[url]);
+                }
+                return data;
+            }
+        },
+        add: function (url) {
+            var begin = Date.now();
+            request(url, function (error, response, body) {
+                var time = Date.now() - begin;
+                processes.statistic.add(url, time, response.statusCode === 200, body.length)
+            })
+        },
+        start: function (settings) {
+            for (var index in settings) {
+                var url = settings[index];
+                this.add(url);
+            }
+        },
+        getStatistic: function () {
+            return processes.statistic.toArray();
+        }
+    };
+
+    var getUrlList = function () {
+        return [
+            'https://github.com/ReenExe',
+            'https://github.com/Golars'
+        ];
     };
 
     return {
         setSetting: function (userCount, hatchRate) {
             setting.userCount = userCount;
             setting.hatchRate = hatchRate;
+            processes.start(getUrlList());
         },
 
         setState: function (state) {
-            process.state = state;
+            processes.state = state;
         },
 
         stop: function () {
-            process.state = 'stop'
+            processes.state = 'stop'
         },
 
         getRequestStatistic: function () {
             return {
-                "stats": [{
-                    "median_response_time": 5,
-                    "min_response_time": 5,
-                    "current_rps": 0.0,
-                    "name": "/api/collections",
-                    "num_failures": 0,
-                    "max_response_time": 5,
-                    "avg_content_length": 177,
-                    "avg_response_time": 5.0,
-                    "method": "GET",
-                    "num_requests": 1
-                }, {
-                    "median_response_time": 4,
-                    "min_response_time": 0,
-                    "current_rps": 0.0,
-                    "name": "Total",
-                    "num_failures": 0,
-                    "max_response_time": 5,
-                    "avg_content_length": 100,
-                    "avg_response_time": 4.5,
-                    "method": null,
-                    "num_requests": 2
-                }],
-                "state": process.state,
+                "stats": processes.getStatistic(),
+                "state": processes.state,
                 "total_rps": Math.floor(Math.random() * 10),
                 "fail_ratio": Math.floor(Math.random() * 3),
                 "user_count": setting.userCount
