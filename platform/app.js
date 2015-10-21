@@ -20,182 +20,45 @@ io.sockets.on('connection', function(socket) {
     });
 
     setInterval(function () {
-        socket.emit('request.statistic', getRequestStatistic());
+        socket.emit('request.statistic', StressTestingCore.getRequestStatistic());
     }, 1000);
 
 });
 
-var getRequestStatistic = function () {
+var StressTestingCore = (function () {
     return {
-        "stats": [{
-            "median_response_time": 4,
-            "min_response_time": 4,
-            "current_rps": 0.0,
-            "name": "/",
-            "num_failures": 0,
-            "max_response_time": 4,
-            "avg_content_length": 23,
-            "avg_response_time": 4.0,
-            "method": "GET",
-            "num_requests": 1
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/1/element/1",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/1/element/2",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/1/element/3",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/1/elements",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/2/element/1",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/2/element/2",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/2/element/3",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/2/elements",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/3/element/1",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/3/element/2",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/3/element/3",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 0,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "/api/collection/3/elements",
-            "num_failures": 0,
-            "max_response_time": 0,
-            "avg_content_length": 0,
-            "avg_response_time": 0,
-            "method": "GET",
-            "num_requests": 0
-        }, {
-            "median_response_time": 5,
-            "min_response_time": 5,
-            "current_rps": 0.0,
-            "name": "/api/collections",
-            "num_failures": 0,
-            "max_response_time": 5,
-            "avg_content_length": 177,
-            "avg_response_time": 5.0,
-            "method": "GET",
-            "num_requests": 1
-        }, {
-            "median_response_time": 4,
-            "min_response_time": 0,
-            "current_rps": 0.0,
-            "name": "Total",
-            "num_failures": 0,
-            "max_response_time": 5,
-            "avg_content_length": 100,
-            "avg_response_time": 4.5,
-            "method": null,
-            "num_requests": 2
-        }],
-        "state": "running",
-        "total_rps": Math.floor(Math.random() * 10),
-        "fail_ratio": Math.floor(Math.random() * 3),
-        "user_count": 12
-    };
-};
+        setUserCount: function (count) {},
+
+        getRequestStatistic: function () {
+            return {
+                "stats": [{
+                    "median_response_time": 5,
+                    "min_response_time": 5,
+                    "current_rps": 0.0,
+                    "name": "/api/collections",
+                    "num_failures": 0,
+                    "max_response_time": 5,
+                    "avg_content_length": 177,
+                    "avg_response_time": 5.0,
+                    "method": "GET",
+                    "num_requests": 1
+                }, {
+                    "median_response_time": 4,
+                    "min_response_time": 0,
+                    "current_rps": 0.0,
+                    "name": "Total",
+                    "num_failures": 0,
+                    "max_response_time": 5,
+                    "avg_content_length": 100,
+                    "avg_response_time": 4.5,
+                    "method": null,
+                    "num_requests": 2
+                }],
+                "state": "running",
+                "total_rps": Math.floor(Math.random() * 10),
+                "fail_ratio": Math.floor(Math.random() * 3),
+                "user_count": 12
+            };
+        }
+    }
+})();
