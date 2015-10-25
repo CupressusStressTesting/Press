@@ -113,15 +113,20 @@
     var report;
 
     function show(report) {
-        var sortCallback = sortBy(sortAttribute, desc);
-
-        var totalRow = report.stats.pop();
-        var sortedStats = report.stats.sort(sortCallback);
-        sortedStats.push(totalRow);
-
         $('#js-statistic')
             .empty()
-            .jqoteapp(statisticTemplate, sortedStats);
+            .jqoteapp(statisticTemplate, getSortedStats(report.stats));
+    }
+
+    function getSortedStats (list) {
+        if (list.length) {
+            var sortCallback = sortBy(sortAttribute, desc);
+            var total = list.pop();
+            list.sort(sortCallback);
+            list.push(total);
+        }
+
+        return list;
     }
 
     $('.stats_label').click(function (event) {

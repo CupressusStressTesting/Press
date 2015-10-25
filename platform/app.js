@@ -41,19 +41,25 @@ var StressTestingCore = (function () {
 
     var processes = {
         state: 'ready',
+        host: 'https://github.com/',
         statistic: {
             data: {},
             add: function (url, microtime, success, length) {
+                var failure =  0 + success;
                 if (this.data[url]) {
                     var current = this.data[url];
                     current["num_requests"] += 1;
+                    current["num_failures"] += failure;
+                    current["min_response_time"] = Math.min(current["min_response_time"], microtime);
+                    current["max_response_time"] = Math.max(current["max_response_time"], microtime);
+                    current["avg_content_length"] = length;
                 } else {
                     this.data[url] = {
                         "median_response_time": microtime,
                         "min_response_time": microtime,
                         "current_rps": 0.0,
                         "name": url,
-                        "num_failures": 0,
+                        "num_failures": failure,
                         "max_response_time": microtime,
                         "avg_content_length": length,
                         "avg_response_time": microtime,
@@ -70,17 +76,26 @@ var StressTestingCore = (function () {
                 return data;
             }
         },
-        add: function (url) {
+        add: function (path) {
             var begin = Date.now();
-            request(url, function (error, response, body) {
+            request(this.host + path, function (error, response, body) {
                 var time = Date.now() - begin;
-                processes.statistic.add(url, time, response.statusCode === 200, body.length)
+                processes.statistic.add(path, time, response.statusCode === 200, body.length)
             })
         },
+        map: {},
+        push: function (item) {
+            var path = item.path;
+            clearInterval(this.map[path]);
+            this.map[path] = setInterval(function() {
+                processes.add(path)
+            }, item.interval);
+        },
         start: function (settings) {
-            for (var index in settings) {
-                var url = settings[index];
-                this.add(url);
+            var host = settings.host;
+
+            for (var index in settings.list) {
+                this.push(settings.list[index]);
             }
         },
         getStatistic: function () {
@@ -89,10 +104,18 @@ var StressTestingCore = (function () {
     };
 
     var getUrlList = function () {
-        return [
-            'https://github.com/ReenExe',
-            'https://github.com/Golars'
-        ];
+        return {
+            list: [
+                {
+                    path: 'ReenExe',
+                    interval: 300
+                },
+                {
+                    path: 'Golars',
+                    interval: 500
+                }
+            ]
+        };
     };
 
     return {
