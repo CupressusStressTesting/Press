@@ -44,16 +44,20 @@ var StressTestingCore = (function () {
         statistic: {
             data: {},
             add: function (url, microtime, success, length) {
+                var failure =  0 + success;
                 if (this.data[url]) {
                     var current = this.data[url];
                     current["num_requests"] += 1;
+                    current["num_failures"] += failure;
+                    current["min_response_time"] = Math.min(current["min_response_time"], microtime);
+                    current["max_response_time"] = Math.max(current["max_response_time"], microtime);
                 } else {
                     this.data[url] = {
                         "median_response_time": microtime,
                         "min_response_time": microtime,
                         "current_rps": 0.0,
                         "name": url,
-                        "num_failures": 0,
+                        "num_failures": failure,
                         "max_response_time": microtime,
                         "avg_content_length": length,
                         "avg_response_time": microtime,
@@ -82,6 +86,10 @@ var StressTestingCore = (function () {
                 var url = settings[index];
                 this.add(url);
             }
+
+            setTimeout(function () {
+                processes.start(settings);
+            }, 1000);
         },
         getStatistic: function () {
             return processes.statistic.toArray();
