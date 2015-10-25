@@ -52,6 +52,7 @@ var StressTestingCore = (function () {
                     current["num_failures"] += failure;
                     current["min_response_time"] = Math.min(current["min_response_time"], microtime);
                     current["max_response_time"] = Math.max(current["max_response_time"], microtime);
+                    current["avg_content_length"] = length;
                 } else {
                     this.data[url] = {
                         "median_response_time": microtime,
