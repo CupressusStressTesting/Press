@@ -41,6 +41,7 @@ var StressTestingCore = (function () {
 
     var processes = {
         state: 'ready',
+        host: 'https://github.com/',
         statistic: {
             data: {},
             add: function (url, microtime, success, length) {
@@ -74,22 +75,27 @@ var StressTestingCore = (function () {
                 return data;
             }
         },
-        add: function (url) {
+        add: function (path) {
             var begin = Date.now();
-            request(url, function (error, response, body) {
+            request(this.host + path, function (error, response, body) {
                 var time = Date.now() - begin;
-                processes.statistic.add(url, time, response.statusCode === 200, body.length)
+                processes.statistic.add(path, time, response.statusCode === 200, body.length)
             })
         },
+        map: {},
+        push: function (item) {
+            var path = item.path;
+            clearInterval(this.map[path]);
+            this.map[path] = setInterval(function() {
+                processes.add(path)
+            }, item.interval);
+        },
         start: function (settings) {
-            for (var index in settings) {
-                var url = settings[index];
-                this.add(url);
-            }
+            var host = settings.host;
 
-            setTimeout(function () {
-                processes.start(settings);
-            }, 1000);
+            for (var index in settings.list) {
+                this.push(settings.list[index]);
+            }
         },
         getStatistic: function () {
             return processes.statistic.toArray();
@@ -97,10 +103,18 @@ var StressTestingCore = (function () {
     };
 
     var getUrlList = function () {
-        return [
-            'https://github.com/ReenExe',
-            'https://github.com/Golars'
-        ];
+        return {
+            list: [
+                {
+                    path: 'ReenExe',
+                    interval: 300
+                },
+                {
+                    path: 'Golars',
+                    interval: 500
+                }
+            ]
+        };
     };
 
     return {
