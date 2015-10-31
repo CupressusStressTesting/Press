@@ -118,7 +118,7 @@
             .jqoteapp(statisticTemplate, getSortedStats(report.stats));
     }
 
-    function getSortedStats (list) {
+    function getSortedStats(list) {
         if (list.length) {
             var sortCallback = sortBy(sortAttribute, desc);
             var total = list.pop();

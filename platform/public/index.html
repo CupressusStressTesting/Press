@@ -104,10 +104,10 @@
     </div>
 
     <script type="text/javascript" src="vendor/socket.io-1.3.7.js"></script>
-    <script type="text/javascript" src="vendor/jquery-1.4.min.js"></script>
+    <script type="text/javascript" src="vendor/jquery.min.js"></script>
     <script type="text/javascript" src="vendor/jquery.jqote2.min.js"></script>
     <script type="text/javascript" src="vendor/jquery.tools.min.js"></script>
-    <script type="text/x-jqote-template" id="js-template-stats">
+    <script type="text/template" id="js-template-stats">
         <![CDATA[
         <tr class="<%=(this.name == "Total" ? "total" : "")%>">
             <td><%= (this.method ? this.method : "") %></td>
