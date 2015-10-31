@@ -45,7 +45,7 @@ var StressTestingCore = (function () {
         statistic: {
             data: {},
             add: function (url, microtime, success, length) {
-                var failure =  0 + success;
+                var failure = 0 + success;
                 if (this.data[url]) {
                     var current = this.data[url];
                     current["num_requests"] += 1;
@@ -87,7 +87,7 @@ var StressTestingCore = (function () {
         push: function (item) {
             var path = item.path;
             clearInterval(this.map[path]);
-            this.map[path] = setInterval(function() {
+            this.map[path] = setInterval(function () {
                 processes.add(path)
             }, item.interval);
         },
@@ -96,6 +96,11 @@ var StressTestingCore = (function () {
 
             for (var index in settings.list) {
                 this.push(settings.list[index]);
+            }
+        },
+        stop: function () {
+            for (var path in this.map) {
+                clearInterval(this.map[path]);
             }
         },
         getStatistic: function () {
@@ -131,6 +136,7 @@ var StressTestingCore = (function () {
 
         stop: function () {
             processes.state = 'stop'
+            processes.stop();
         },
 
         getRequestStatistic: function () {
