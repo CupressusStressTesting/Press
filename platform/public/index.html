@@ -103,25 +103,25 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="socket.io-1.3.7.js"></script>
-    <script type="text/javascript" src="jquery-1.4.min.js"></script>
-    <script type="text/javascript" src="jquery.jqote2.min.js"></script>
-    <script type="text/javascript" src="jquery.tools.min.js"></script>
-    <script type="text/x-jqote-template" id="js-template-stats">
-        <![CDATA[
-        <tr class="<%=(this.name == "Total" ? "total" : "")%>">
-            <td><%= (this.method ? this.method : "") %></td>
-            <td><%= this.name %></td>
-            <td class="numeric"><%= this.num_requests %></td>
-            <td class="numeric"><%= this.num_failures %></td>
-            <td class="numeric"><%= Math.round(this.median_response_time) %></td>
-            <td class="numeric"><%= Math.round(this.avg_response_time) %></td>
-            <td class="numeric"><%= this.min_response_time %></td>
-            <td class="numeric"><%= this.max_response_time %></td>
-            <td class="numeric"><%= Math.round(this.avg_content_length) %></td>
-            <td class="numeric"><%= Math.round(this.current_rps*100)/100 %></td>
-        </tr>
-        ]]>
+    <script type="text/javascript" src="vendor/socket.io-1.3.7.js"></script>
+    <script type="text/javascript" src="vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="vendor/underscore-min.js"></script>
+    <script type="text/template" id="js-template-stats">
+        <% _.each(list, function(item) { %>
+            <tr>
+                <td><%= item.method %></td>
+                <td><%= item.name %></td>
+                <td class="numeric"><%= item.num_requests %></td>
+                <td class="numeric"><%= item.num_failures %></td>
+                <td class="numeric"><%= Math.round(item.median_response_time) %></td>
+                <td class="numeric"><%= Math.round(item.avg_response_time) %></td>
+                <td class="numeric"><%= item.min_response_time %></td>
+                <td class="numeric"><%= item.max_response_time %></td>
+                <td class="numeric"><%= Math.round(item.avg_content_length) %></td>
+                <td class="numeric"><%= Math.round(item.current_rps*100)/100 %></td>
+            </tr>
+        <% }); %>
     </script>
     <script type="text/javascript" src="locust.js"></script>
 </body>

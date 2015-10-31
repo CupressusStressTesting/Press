@@ -135,7 +135,7 @@ var StressTestingCore = (function () {
         },
 
         stop: function () {
-            processes.state = 'stop'
+            processes.state = 'stop';
             processes.stop();
         },
 

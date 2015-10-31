@@ -55,7 +55,7 @@
 
     $('ul.tabs').tabs('div.panes > div');
 
-    var statisticTemplate = $('#js-template-stats');
+    var statisticTemplate = _.template($('#js-template-stats').html());
 
     var useFormSetting = function (form) {
         var data = {};
@@ -115,10 +115,12 @@
     function show(report) {
         $('#js-statistic')
             .empty()
-            .jqoteapp(statisticTemplate, getSortedStats(report.stats));
+            .html(statisticTemplate({
+                list: getSortedStats(report.stats)
+            }));
     }
 
-    function getSortedStats (list) {
+    function getSortedStats(list) {
         if (list.length) {
             var sortCallback = sortBy(sortAttribute, desc);
             var total = list.pop();
