@@ -1,3 +1,4 @@
 .idea
 locust
 platform/node_modules
+platform/static/vendor
