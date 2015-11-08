@@ -106,7 +106,7 @@
     };
 
     // Sorting by column
-    var sortAttribute = "name";
+    var sortAttribute = 'name';
     var desc = false;
     var report;
 
@@ -130,7 +130,7 @@
     }
 
     $('.js-column').click(function () {
-        sortAttribute = $(this).attr('data-sortkey');
+        sortAttribute = $(this).data('sort-key');
         desc = !desc;
 
         show(report);
