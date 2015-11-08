@@ -45,33 +45,51 @@ var StressTestingCore = (function () {
         statistic: {
             data: {},
             add: function (url, microtime, success, length) {
-                var failure = 0 + success;
                 if (this.data[url]) {
                     var current = this.data[url];
-                    current["num_requests"] += 1;
-                    current["num_failures"] += failure;
+                    current["count"] += 1;
+                    current["success_count"] += success;
+                    current["time"] += microtime;
+
                     current["min_response_time"] = Math.min(current["min_response_time"], microtime);
                     current["max_response_time"] = Math.max(current["max_response_time"], microtime);
+
                     current["avg_content_length"] = length;
                 } else {
                     this.data[url] = {
-                        "median_response_time": microtime,
-                        "min_response_time": microtime,
-                        "current_rps": 0.0,
                         "name": url,
-                        "num_failures": failure,
+                        "success_count": 0 + success,
+
+                        "min_response_time": microtime,
                         "max_response_time": microtime,
+
                         "avg_content_length": length,
-                        "avg_response_time": microtime,
                         "method": "GET",
-                        "num_requests": 1
+                        "count": 1,
+                        "time": microtime
                     }
                 }
             },
             toArray: function () {
                 var data = [];
                 for (var url in this.data) {
-                    data.push(this.data[url]);
+                    var item = this.data[url];
+                    data.push({
+                        "name": item["name"],
+                        "method": item["method"],
+
+                        "min_response_time": item["min_response_time"],
+                        "max_response_time": item["max_response_time"],
+                        "median_response_time": (item["min_response_time"] + item["max_response_time"]) / 2,
+
+                        "current_rps": item["count"] * 1000 / item["time"],
+
+                        "num_failures": item["count"] - item["success_count"],
+
+                        "avg_content_length": item["avg_content_length"],
+                        "avg_response_time": item["time"] / (item["count"] * 1000),
+                        "num_requests": item["count"]
+                    });
                 }
                 return data;
             }
