@@ -129,7 +129,7 @@
         return list;
     }
 
-    $('.stats_label').click(function (event) {
+    $('.js-column').click(function () {
         sortAttribute = $(this).attr('data-sortkey');
         desc = !desc;
 
