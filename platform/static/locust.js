@@ -53,8 +53,6 @@
         $(this).parent().parent().hide();
     });
 
-    $('ul.tabs').tabs('div.panes > div');
-
     var statisticTemplate = _.template($('#js-template-stats').html());
 
     var useFormSetting = function (form) {
@@ -132,7 +130,7 @@
     }
 
     $('.stats_label').click(function (event) {
-        sortAttribute = $(this).attr("data-sortkey");
+        sortAttribute = $(this).attr('data-sortkey');
         desc = !desc;
 
         show(report);
