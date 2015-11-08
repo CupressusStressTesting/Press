@@ -91,6 +91,58 @@ var StressTestingCore = (function () {
                         "num_requests": item["count"]
                     });
                 }
+
+                if (data.length > 1) {
+                    var first = data[0];
+                    var total = {
+                        "name": "Total",
+                        "method": "Any",
+
+                        "min_response_time": first["min_response_time"],
+                        "max_response_time": first["max_response_time"],
+                        "median_response_time": 0,
+
+                        "current_rps": 0,
+                        "num_failures": 0,
+
+                        "avg_content_length": 0,
+                        "avg_response_time": 0,
+                        "num_requests": 0
+                    };
+
+                    var avgContentLength = 0,
+                        avgContentTime = 0;
+
+
+                    for (var index in data) {
+                        var item = data[index];
+                        total["min_response_time"] = Math.min(
+                            total["min_response_time"],
+                            item["min_response_time"]
+                        );
+
+                        total["max_response_time"] = Math.max(
+                            total["max_response_time"],
+                            item["max_response_time"]
+                        );
+
+                        total["num_failures"] += item["num_failures"];
+                        total["current_rps"] += item["current_rps"];
+
+                        total["num_requests"] += item["num_requests"];
+
+                        avgContentLength += item["avg_content_length"];
+                        avgContentTime += item["avg_response_time"];
+
+                    }
+
+                    total["median_response_time"] = (total["min_response_time"] + total["max_response_time"]) / 2;
+                    total["avg_content_length"] = avgContentLength / data.length;
+                    total["avg_response_time"] = avgContentTime / data.length;
+
+                    data.push(total);
+                }
+
                 return data;
             }
         },
@@ -158,11 +210,21 @@ var StressTestingCore = (function () {
         },
 
         getRequestStatistic: function () {
+            var stats = processes.getStatistic();
+
+            var rps = 0,
+                fail = 0;
+            if (stats.length) {
+                var total = stats[stats.length - 1];
+                rps = total["current_rps"];
+                fail = total["num_failures"] / total["num_requests"];
+            }
+
             return {
-                "stats": processes.getStatistic(),
+                "stats": stats,
                 "state": processes.state,
-                "total_rps": Math.floor(Math.random() * 10),
-                "fail_ratio": Math.floor(Math.random() * 3),
+                "total_rps": rps,
+                "fail_ratio": fail,
                 "user_count": setting.userCount
             };
         }
