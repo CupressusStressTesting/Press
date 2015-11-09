@@ -165,8 +165,6 @@ var StressTestingCore = (function () {
             }, item.interval);
         },
         start: function (settings) {
-            var host = settings.host;
-
             for (var index in settings.list) {
                 this.push(settings.list[index]);
             }
