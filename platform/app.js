@@ -155,10 +155,13 @@ var StressTestingCore = (function () {
         },
         map: {},
         push: function (item) {
-            var path = item.path;
+            var path = item.path,
+                count = item.count;
             clearInterval(this.map[path]);
             this.map[path] = setInterval(function () {
-                processes.add(path)
+                for (var i = 0; i < count; ++i) {
+                    processes.add(path);
+                }
             }, item.interval);
         },
         start: function (settings) {
@@ -183,11 +186,13 @@ var StressTestingCore = (function () {
             list: [
                 {
                     path: 'ReenExe',
-                    interval: 300
+                    interval: 300,
+                    count: 10
                 },
                 {
                     path: 'Golars',
-                    interval: 500
+                    interval: 500,
+                    count: 10
                 }
             ]
         };
