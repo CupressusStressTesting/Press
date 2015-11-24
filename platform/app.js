@@ -27,13 +27,14 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('process.stop', StressTestingCore.stop);
 
-    setInterval(function () {
-        socket.emit('request.statistic.update', StressTestingCore.getRequestStatistic());
-    }, 1000);
-
+    StressTestingCore.addListener(function (data) {
+        socket.emit('request.statistic.update', data);
+    });
 });
 
 var StressTestingCore = (function () {
+    var listeners = [];
+
     var setting = {
         userCount: 0,
         hatchRate: 0
@@ -162,6 +163,7 @@ var StressTestingCore = (function () {
                 for (var i = 0; i < count; ++i) {
                     processes.add(path);
                 }
+                sendStatistic();
             }, item.interval);
         },
         start: function (settings) {
@@ -196,6 +198,35 @@ var StressTestingCore = (function () {
         };
     };
 
+    var getRequestStatistic = function () {
+        var stats = processes.getStatistic();
+
+        var rps = 0,
+            fail = 0;
+        if (stats.length) {
+            var total = stats[stats.length - 1];
+            rps = total["current_rps"];
+            fail = total["num_failures"] / total["num_requests"];
+        }
+
+        return {
+            "stats": stats,
+            "state": processes.state,
+            "total_rps": rps,
+            "fail_ratio": fail,
+            "user_count": setting.userCount
+        };
+    };
+
+    var sendStatistic = function () {
+        var statistic = getRequestStatistic();
+
+        for (var index in listeners) {
+            var listener = listeners[index];
+            listener(statistic);
+        }
+    };
+
     return {
         setSetting: function (userCount, hatchRate) {
             setting.userCount = userCount;
@@ -212,24 +243,8 @@ var StressTestingCore = (function () {
             processes.stop();
         },
 
-        getRequestStatistic: function () {
-            var stats = processes.getStatistic();
-
-            var rps = 0,
-                fail = 0;
-            if (stats.length) {
-                var total = stats[stats.length - 1];
-                rps = total["current_rps"];
-                fail = total["num_failures"] / total["num_requests"];
-            }
-
-            return {
-                "stats": stats,
-                "state": processes.state,
-                "total_rps": rps,
-                "fail_ratio": fail,
-                "user_count": setting.userCount
-            };
+        addListener: function (callable) {
+            listeners.push(callable);
         }
     }
 })();
