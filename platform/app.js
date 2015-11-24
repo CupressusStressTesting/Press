@@ -42,7 +42,7 @@ var StressTestingCore = (function () {
 
     var processes = {
         state: 'ready',
-        host: 'https://github.com/',
+        host: 'http://fs.to/',
         statistic: {
             data: {},
             add: function (url, microtime, success, length) {
@@ -185,12 +185,12 @@ var StressTestingCore = (function () {
         return {
             list: [
                 {
-                    path: 'ReenExe',
+                    path: 'texts',
                     interval: 300,
                     count: 10
                 },
                 {
-                    path: 'Golars',
+                    path: 'games',
                     interval: 500,
                     count: 10
                 }
