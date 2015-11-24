@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var request = require('request');
-//
-//var async = require('async');
+
+var async = require('async');
 
 app.use(express.static('public'));
 app.use(express.static('static'));
@@ -159,19 +159,17 @@ var StressTestingCore = (function () {
                 count = item.count;
             clearInterval(this.map[path]);
 
-            //var tasks = [];
-            //var task = function () {
-            //    processes.add(path);
-            //};
-            //
-            //for (var i = 0; i < count; ++i) {
-            //    tasks.push(task);
-            //}
+            var tasks = [];
+            var task = function () {
+                processes.add(path);
+            };
+
+            for (var i = 0; i < count; ++i) {
+                tasks.push(task);
+            }
 
             this.map[path] = setInterval(function () {
-                for (var i = 0; i < count; ++i) {
-                    processes.add(path);
-                }
+                async.parallel(tasks);
                 sendStatistic();
             }, item.interval);
         },
