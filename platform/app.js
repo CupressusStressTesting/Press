@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var request = require('request');
+//
+//var async = require('async');
 
 app.use(express.static('public'));
 app.use(express.static('static'));
@@ -20,10 +22,7 @@ io.sockets.on('connection', function (socket) {
         message: 'Platform Side'
     });
 
-    socket.on('setting.set', function (data) {
-        StressTestingCore.setSetting(data.user_count, data.hatch_rate);
-        StressTestingCore.setState('running');
-    });
+    socket.on('setting.set', StressTestingCore.start);
 
     socket.on('process.stop', StressTestingCore.stop);
 
@@ -159,6 +158,16 @@ var StressTestingCore = (function () {
             var path = item.path,
                 count = item.count;
             clearInterval(this.map[path]);
+
+            //var tasks = [];
+            //var task = function () {
+            //    processes.add(path);
+            //};
+            //
+            //for (var i = 0; i < count; ++i) {
+            //    tasks.push(task);
+            //}
+
             this.map[path] = setInterval(function () {
                 for (var i = 0; i < count; ++i) {
                     processes.add(path);
@@ -227,19 +236,24 @@ var StressTestingCore = (function () {
         }
     };
 
+    var setState = function (state) {
+        processes.state = state;
+    };
+
+    var setSetting = function (userCount, hatchRate) {
+        setting.userCount = userCount;
+        setting.hatchRate = hatchRate;
+    };
+
     return {
-        setSetting: function (userCount, hatchRate) {
-            setting.userCount = userCount;
-            setting.hatchRate = hatchRate;
+        start: function (data) {
+            setSetting(data.user_count, data.hatch_rate);
+            setState('running');
             processes.start(getUrlList());
         },
 
-        setState: function (state) {
-            processes.state = state;
-        },
-
         stop: function () {
-            processes.state = 'stop';
+            setState('stop');
             processes.stop();
         },
 
