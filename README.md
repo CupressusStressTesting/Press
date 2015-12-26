@@ -9,4 +9,6 @@
 ### Books:
 
 ##### [Node.js in Action](https://www.manning.com/books/node-js-in-action)
-* [progress: 19 from 518]
+У книзі є вода - CSS
+* [progress: 19 from 548]
+* [progress: 61 from 548]
